@@ -1,10 +1,22 @@
 import React from 'react';
-import Routes from './routes';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/common/Layout';
+import Home from './pages/Home';
+import MenuPage from './pages/MenuPage';
+import GalleryPage from './pages/GalleryPage';
+import ContactPage from './pages/ContactPage';
 
 export default function App() {
   return (
-    <div>
-      <Routes />
-    </div>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }

@@ -1,18 +1,19 @@
 import React from 'react';
 
-export default function About(){
+export default function About() {
   return (
-    <section className="section">
-      <div className="container card">
-        <div style={{display:'flex',gap:20,alignItems:'center',flexWrap:'wrap'}}>
-          <div style={{flex:'1 1 300px'}}>
-            <img src="/images/chef.jpg" alt="Chef" style={{width:'100%',borderRadius:8}} />
-          </div>
-          <div style={{flex:'2 1 360px'}}>
-            <h2 style={{marginTop:0,fontFamily:'Playfair Display, serif'}}>Our Story</h2>
-            <p style={{color:'var(--muted)'}}>LaMesa was born out of a love for seasonal produce and community dining. Our chef crafts menus that change with the harvest — come taste the season.</p>
-            <p style={{marginTop:12}}>Open daily from 11am — 10pm. Book a private event or join us for weekend brunch.</p>
-          </div>
+    <section style={{ padding: '60px 20px', backgroundColor: '#fff' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'center' }}>
+        <img src="https://images.pexels.com/photos/8951563/pexels-photo-8951563.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="About us" style={{ flex: 1, borderRadius: 12,height:500 }} />
+        <div style={{ flex: 1 }}>
+          <h2>About Us</h2>
+          <p style={{ lineHeight: 1.6, marginBottom: 16 }}>
+            We are a passionate team of chefs and food lovers dedicated to delivering unforgettable dining experiences.
+            From locally sourced ingredients to exquisite recipes, every dish tells a story.
+          </p>
+          <p style={{ lineHeight: 1.6 }}>
+            Join us for a culinary journey that delights the senses and creates memories you’ll cherish forever.
+          </p>
         </div>
       </div>
     </section>

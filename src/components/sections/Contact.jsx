@@ -1,21 +1,91 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function Contact(){
+export default function Contact() {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('Contact Message:', formData);
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <section style={{ padding: '80px 20px', textAlign: 'center', background: '#f5f5f5' }}>
+        <h2 style={{ fontSize: 32, color: '#ff4d4f', marginBottom: 16 }}>Message Sent!</h2>
+        <p style={{ fontSize: 18, color: '#555' }}>We will get back to you shortly. Thank you!</p>
+      </section>
+    );
+  }
+
   return (
-    <section className="section">
-      <div className="container card">
-        <h2>Contact Us</h2>
-        <div style={{display:'flex',gap:20,flexWrap:'wrap'}}>
-          <div style={{flex:'1 1 320px'}}>
-            <p>Phone: +256 700 000 000</p>
-            <p>Address: 123 Food Ave, Kampala</p>
-            <p>Hours: 11:00 — 22:00 daily</p>
-          </div>
-          <div style={{flex:'1 1 320px'}}>
-            <iframe title="map" style={{width:'100%',height:200,border:0,borderRadius:8}} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127743.123456789!2d32.5!3d0.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z0KDQvtC70Y_QsNC80YLQvtC_0YPRgNCw0Y8!5e0!3m2!1sen!2sug!4v0000000000000" />
-          </div>
+    <section style={{ padding: '80px 20px', background: '#f5f5f5' }}>
+      <div style={{
+        maxWidth: 1000,
+        margin: '0 auto',
+        display: 'flex',
+        gap: 40,
+        flexWrap: 'wrap',
+      }}>
+        <form onSubmit={handleSubmit} style={{
+          flex: 1,
+          background: '#fff',
+          padding: 40,
+          borderRadius: 16,
+          boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+          display: 'grid',
+          gap: 20,
+        }}>
+          <h2 style={{ fontSize: 32, marginBottom: 20, color: '#ff4d4f' }}>Contact Us</h2>
+          <input style={inputStyle} type="text" name="name" placeholder="Your Name" required value={formData.name} onChange={handleChange} />
+          <input style={inputStyle} type="email" name="email" placeholder="Your Email" required value={formData.email} onChange={handleChange} />
+          <textarea style={{ ...inputStyle, minHeight: 140 }} name="message" placeholder="Your Message" required value={formData.message} onChange={handleChange} />
+          <button style={buttonStyle} type="submit">Send Message</button>
+        </form>
+
+        <div style={{
+          flex: 1,
+          minHeight: 400,
+          borderRadius: 16,
+          overflow: 'hidden',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+        }}>
+          <iframe
+            title="Restaurant Map"
+            src="https://maps.google.com/maps?q=New%20York%20City&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            style={{ width: '100%', height: '100%', border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+          ></iframe>
         </div>
       </div>
     </section>
   );
 }
+
+const inputStyle = {
+  padding: '14px 20px',
+  borderRadius: 8,
+  border: '1px solid #ddd',
+  fontSize: 16,
+  outline: 'none',
+  transition: '0.3s',
+};
+
+const buttonStyle = {
+  padding: '16px',
+  borderRadius: 50,
+  border: 'none',
+  fontSize: 18,
+  fontWeight: 'bold',
+  color: '#fff',
+  background: 'linear-gradient(90deg, #ff4d4f, #ff7a5c)',
+  cursor: 'pointer',
+  transition: '0.3s',
+};

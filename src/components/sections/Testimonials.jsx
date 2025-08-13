@@ -1,21 +1,47 @@
 import React from 'react';
 
-const data = [
-  {name:'Amina', quote:'Amazing food and vibes!', rating:5},
-  {name:'Jon', quote:'Best brunch in town.', rating:4},
-  {name:'Lee', quote:'Cozy place and great service.', rating:5}
+const testimonials = [
+  {
+    id: 1,
+    name: 'Emma Watson',
+    comment: 'Absolutely amazing food and atmosphere! Highly recommended.',
+    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww',
+  },
+  {
+    id: 2,
+    name: 'John Doe',
+    comment: 'The dishes are creative, fresh, and incredibly tasty.',
+    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww',
+  },
+  {
+    id: 3,
+    name: 'Sophia Lee',
+    comment: 'A wonderful dining experience. The staff is very friendly.',
+    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fHww',
+  },
 ];
 
-export default function Testimonials(){
+export default function Testimonials() {
   return (
-    <section className="section">
-      <div className="container">
-        <h2>What People Say</h2>
-        <div style={{display:'flex',gap:12,flexWrap:'wrap'}}>
-          {data.map((t,i)=> (
-            <div key={i} className="card" style={{flex:'1 1 200px'}}>
-              <p style={{marginTop:0}}>{t.quote}</p>
-              <small style={{color:'var(--muted)'}}>— {t.name}</small>
+    <section style={{ padding: '60px 20px', backgroundColor: '#f9f9f9' }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto', textAlign: 'center' }}>
+        <h2 style={{ marginBottom: 40 }}>What Our Guests Say</h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: 20,
+        }}>
+          {testimonials.map(t => (
+            <div key={t.id} style={{
+              background: '#fff',
+              padding: 24,
+              borderRadius: 12,
+              boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
+              textAlign: 'center',
+            }}>
+              <img src={t.photo} alt={t.name} style={{ borderRadius: '50%', marginBottom: 16,width:75,height:85 }} />
+              <p style={{ fontStyle: 'italic', marginBottom: 12 }}>"{t.comment}"</p>
+              <strong>{t.name}</strong>
             </div>
           ))}
         </div>
