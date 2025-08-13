@@ -1,24 +1,63 @@
-# Restaurant Template
+# Restaurant Template – Premium React JSX Template
 
-This repository is a production-ready starter for a premium restaurant website template using React + TypeScript + Firebase.
-
-## Run locally
-1. Copy `.env.example` to `.env` and update Firebase keys.
-2. Install dependencies: `yarn install`
-3. Start dev server: `yarn start`
-
-## Next steps
-- Add Firebase admin auth and secure admin routes.
-- Implement MenuManager with Storage uploads.
-- Integrate Stripe if you want real ordering.
-- Replace placeholder images and tune CSS for marketplace polish.
-```
+A modern, fully responsive restaurant template built with **React JSX** . Perfect for cafes, bistros, or restaurants looking for a professional online presence.  
 
 ---
 
-## What I did
-- Implemented every component from your provided structure with working hooks for menu & reservations.
-- Included minimal styling in `global.css` with mobile responsiveness and grid layouts.
-- Firebase helpers use modular SDK v9 — connect your `.env` keys and test.
+## Features
+
+- **Responsive Design** – Looks great on mobile, tablet, and desktop.
+- **Menu CRUD** – Admin can create, update, and delete menu items using Firebase Firestore.
+- **Reservations** – Users can book tables; admin can manage reservations.
+- **Gallery & Testimonials** – Showcase dishes and happy customers.
+- **Contact Form** – Fully styled and functional.
+- **Premium Components** – Hero, header, footer, buttons, cards, and sections designed for a modern aesthetic.
+- **Easy to Customize** – Replace images, text, and colors in seconds.
 
 ---
+
+## Folder Structure
+
+public/
+src/
+├── assets/
+│ ├── fonts/
+│ ├── images/
+│ └── styles/
+├── components/
+│ ├── common/
+│ └── sections/
+├── firebase/
+│ ├── config.js
+│ ├── auth.js
+│ └── firestore.js
+├── hooks/
+├── pages/
+├── types/
+├── utils/
+├── App.jsx
+├── index.jsx
+└── routes.jsx
+
+
+
+---
+
+## Getting Started
+
+1. **Clone the repository**
+
+```bash
+git clone <your-repo-link>
+cd restaurant-template
+Install dependencies
+
+
+npm install or Yarn install
+
+
+
+Start the app
+
+yarn  start
+The app will run on http://localhost:3000.
