@@ -1,37 +1,25 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { FiArrowRight } from 'react-icons/fi';
+import React from 'react';
 
-const Hero = () => {
+export default function Hero(){
   return (
-    <section className="hero-section">
-      <div className="hero-content">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Exquisite Dining Experience
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Discover our carefully crafted menu featuring the finest ingredients
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <Link to="/reservation" className="cta-button">
-            Reserve a Table <FiArrowRight />
-          </Link>
-        </motion.div>
+    <section className="hero">
+      <div className="container">
+        <div style={{display:'flex',alignItems:'center',gap:30,flexWrap:'wrap'}}>
+          <div style={{flex:'1 1 360px'}}>
+            <h1 style={{fontFamily:'Playfair Display, serif',fontSize:36}}>Seasonal Flavors. Timeless Taste.</h1>
+            <p style={{color:'var(--muted)'}}>Experience curated dishes made from the freshest local ingredients. Reserve your table today.</p>
+            <div style={{marginTop:18}}>
+              <a className="btn-primary" href="#reservation">Reserve a table</a>
+              <a style={{marginLeft:12}} className="btn-ghost" href="/menu">View Menu</a>
+            </div>
+          </div>
+          <div style={{flex:'1 1 320px'}}>
+            <div className="card">
+              <img src="/images/hero-food.jpg" alt="Hero food" style={{width:'100%',height:220,objectFit:'cover',borderRadius:8}} />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

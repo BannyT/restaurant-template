@@ -1,33 +1,22 @@
-import { lazy, Suspense } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import LoadingSpinner from './components/common/LoadingSpinner';
-import AdminRoute from './components/common/AdminRoute';
+import Layout from './components/common/Layout';
+import Home from './pages/Home';
+import MenuPage from './pages/MenuPage';
+import GalleryPage from './pages/GalleryPage';
+import ContactPage from './pages/ContactPage';
+import AdminDashboard from './pages/Admin/Dashboard';
 
-const Home = lazy(() => import('./pages/Home'));
-const MenuPage = lazy(() => import('./pages/MenuPage'));
-const GalleryPage = lazy(() => import('./pages/GalleryPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const Dashboard = lazy(() => import('./pages/Admin/Dashboard'));
-const MenuManager = lazy(() => import('./pages/Admin/MenuManager'));
-const Reservations = lazy(() => import('./pages/Admin/Reservations'));
-
-const AppRoutes = () => {
+export default function AppRoutes() {
   return (
-    <Suspense fallback={<LoadingSpinner />}>
+    <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        
-        <Route path="/admin" element={<AdminRoute />}>
-          <Route index element={<Dashboard />} />
-          <Route path="menu" element={<MenuManager />} />
-          <Route path="reservations" element={<Reservations />} />
-        </Route>
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
-    </Suspense>
+    </Layout>
   );
-};
-
-export default AppRoutes;
+}

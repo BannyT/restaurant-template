@@ -1,19 +1,10 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider } from './firebase/auth';
-import AppRoutes from './routes';
-import Layout from './components/common/Layout';
-import './assets/styles/main.scss';
+import React from 'react';
+import Routes from './routes';
 
-function App() {
+export default function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Layout>
-          <AppRoutes />
-        </Layout>
-      </Router>
-    </AuthProvider>
+    <div>
+      <Routes />
+    </div>
   );
 }
-
-export default App;
