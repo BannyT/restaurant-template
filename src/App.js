@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import MenuPage from './pages/MenuPage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
+import ReservationPage from './pages/ReservationPage'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/reservation" element={<ReservationPage />} />
         </Routes>
       </Layout>
     </Router>
