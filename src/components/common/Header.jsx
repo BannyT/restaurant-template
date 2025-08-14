@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
-        <Link to="/" className="logo">🍴 Epicure Bites</Link>
+        <Link to="/" className="logo">🍴 GourmetBites</Link>
 
         <nav className={`nav ${menuOpen ? 'open' : ''}`}>
           <Link to="/" className="nav-link">Home</Link>

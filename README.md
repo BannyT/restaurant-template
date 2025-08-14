@@ -59,5 +59,5 @@ npm install or Yarn install
 
 Start the app
 
-yarn  start
+yarn  start or npm start
 The app will run on http://localhost:3000.
