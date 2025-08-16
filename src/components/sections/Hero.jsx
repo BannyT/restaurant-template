@@ -1,35 +1,51 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
-export default function Hero() {
+export default function Hero(){
   return (
-    <section style={{
-      height: '90vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundImage: 'url(https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      color: '#fff',
-      textAlign: 'center',
-      position: 'relative',
-    }}>
-      <div style={{
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        padding: '40px',
-        borderRadius: 12,
-      }}>
-        <h1 style={{ fontSize: '3rem', marginBottom: 16 }}>Delicious Moments Await</h1>
-        <p style={{ fontSize: '1.25rem', marginBottom: 24 }}>Experience the finest dishes crafted with love and passion.</p>
-        <button style={{
-          padding: '12px 24px',
-          fontSize: '1rem',
-          borderRadius: 25,
-          border: 'none',
-          backgroundColor: '#ff4d4f',
-          color: '#fff',
-          cursor: 'pointer',
-        }}>Reserve a Table</button>
+    <section className="section">
+      <div className="container hero">
+        <div className="hero-media" />
+        <div className="hero-content">
+          <motion.span
+            initial={{opacity:0, y:8}}
+            animate={{opacity:1, y:0}}
+            transition={{duration:.6, delay:.05}}
+            className="badge"
+          >
+            Fine dining • Modern cuisine
+          </motion.span>
+
+          <motion.h1
+            initial={{opacity:0, y:10}}
+            animate={{opacity:1, y:0}}
+            transition={{duration:.7, delay:.15}}
+          >
+            Crafting moments that<br/>taste like luxury
+          </motion.h1>
+
+          <motion.p
+            initial={{opacity:0}}
+            animate={{opacity:1}}
+            transition={{duration:.7, delay:.25}}
+            style={{maxWidth:760, margin:'10px auto 24px'}}
+          >
+            A premium React template with motion, elegant UI, and ready-to-sell quality.
+            Features category menu, gallery lightbox, reservations, and styled contact.
+          </motion.p>
+
+          <motion.div
+            initial={{opacity:0, y:8}}
+            animate={{opacity:1, y:0}}
+            transition={{duration:.7, delay:.35}}
+            style={{display:'flex', gap:10, justifyContent:'center'}}
+          >
+            <a className="btn btn-primary" href="#reservation">Reserve a table</a>
+            <a className="btn btn-ghost" href="/menu">Explore menu</a>
+          </motion.div>
+        </div>
+
+        <div className="floating" aria-hidden="true" />
       </div>
     </section>
   );

@@ -1,65 +1,56 @@
-import React, { useState } from 'react';
-import useMenu from '../../hooks/useMenu';
+import React, { useMemo, useState } from 'react';
 
-function MenuCard({ item, onDelete }) {
-  return (
-    <div className="card" style={{
-      border: '1px solid #eee',
-      borderRadius: 8,
-      overflow: 'hidden',
-      padding: 16,
-      textAlign: 'center',
-      background: '#fff',
-      boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
-    }}>
-      <img src={item.photoUrl} alt={item.name} style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 8 }} />
-      <h3>{item.name}</h3>
-      <p style={{ color: '#666' }}>{item.description}</p>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
-        <strong>${item.price.toFixed(2)}</strong>
-        {/* <button onClick={() => onDelete(item.id)} style={{
-          border: 'none',
-          background: '#ff4d4f',
-          color: '#fff',
-          padding: '6px 12px',
-          borderRadius: 4,
-          cursor: 'pointer',
-        }}>Delete</button> */}
-      </div>
-    </div>
-  );
-}
+const DUMMY_MENU = [
+  {id:'1', name:'Truffle Tagliatelle', price:28, category:'mains', description:'House-made pasta, black truffle, parmesan', photo:' https://images.unsplash.com/photo-1490645935967-10de6ba17061'},
+  {id:'2', name:'Sea Bass Ceviche', price:22, category:'starters', description:'Citrus, chili, coriander, red onion', photo:'https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop'},
+  {id:'3', name:'Chocolate Fondant', price:14, category:'desserts', description:'Warm center, vanilla ice cream', photo:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200&auto=format&fit=crop'},
+  {id:'4', name:'Aged Ribeye', price:36, category:'mains', description:'Grass-fed, herb butter, jus', photo:'https://images.unsplash.com/photo-1553163147-622ab57be1c7?q=80&w=1200&auto=format&fit=crop'},
+  {id:'5', name:'Signature Spritz', price:12, category:'drinks', description:'Citrus, prosecco, aromatic bitters', photo:'https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=1200&auto=format&fit=crop'},
+  {id:'6', name:'Burrata & Heirloom', price:18, category:'starters', description:'Basil oil, aged balsamic', photo:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd'}
+];
 
-export default function Menu() {
-  const { menuItems, deleteMenuItem } = useMenu();
-  const [category, setCategory] = useState('all');
+export default function Menu(){
+  const [query, setQuery] = useState('');
+  const [cat, setCat] = useState('all');
+  const cats = ['all','starters','mains','desserts','drinks'];
 
-  const categories = ['all', 'starters', 'mains', 'desserts', 'drinks'];
-  const filtered = menuItems.filter(item => category === 'all' ? true : item.category === category);
+  const filtered = useMemo(()=>{
+    return DUMMY_MENU.filter(i => (cat==='all' || i.category===cat) && i.name.toLowerCase().includes(query.toLowerCase()));
+  },[cat, query]);
 
   return (
-    <section style={{ padding: '60px 20px', background: '#f9f9f9' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: 24 }}>Our Menu</h2>
-        <div style={{ marginBottom: 24, display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
-          {categories.map(c => (
-            <button
-              key={c}
-              onClick={() => setCategory(c)}
-              style={{
-                padding: '8px 16px',
-                borderRadius: 20,
-                border: '1px solid #333',
-                background: category === c ? '#333' : 'transparent',
-                color: category === c ? '#fff' : '#333',
-                cursor: 'pointer',
-              }}
-            >{c}</button>
+    <section className="section" id="menu">
+      <div className="container">
+        <h2>Signature Menu</h2>
+        <p>Curated dishes from our chef. Search & filter in real-time.</p>
+
+        <div style={{display:'flex',gap:10,flexWrap:'wrap',margin:'16px 0 10px'}}>
+          {cats.map(c=>(
+            <button key={c} className={`btn ${c===cat ? 'btn-primary' : 'btn-ghost'}`} onClick={()=>setCat(c)}>{c}</button>
           ))}
+          <input
+            placeholder="Search dishes…"
+            value={query}
+            onChange={e=>setQuery(e.target.value)}
+            style={{flex:'1 1 220px',minWidth:220,background:'#0f0f14',border:'1px solid var(--border)',borderRadius:999,padding:'12px 14px',color:'var(--text)'}}
+          />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 20 }}>
-          {filtered.map(item => <MenuCard key={item.id} item={item} onDelete={deleteMenuItem} />)}
+        <div className="menu-grid">
+          {filtered.map(item=>(
+            <article key={item.id} className="card menu-card">
+              <img src={item.photo} alt={item.name} />
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:10}}>
+                <h3 style={{margin:0}}>{item.name}</h3>
+                <span className="badge">${item.price.toFixed(2)}</span>
+              </div>
+              <p>{item.description}</p>
+              <div style={{display:'flex',gap:10,marginTop:10}}>
+                <button className="btn btn-ghost">Details</button>
+                <button className="btn btn-primary">Add to cart</button>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

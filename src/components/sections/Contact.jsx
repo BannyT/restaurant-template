@@ -1,91 +1,51 @@
 import React, { useState } from 'react';
 
-export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+export default function Contact(){
+  const [form, setForm] = useState({ name:'', email:'', message:'' });
+  const [sent, setSent] = useState(false);
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = e => {
+  const onChange = e => setForm({...form, [e.target.name]: e.target.value});
+  const submit = async (e) => {
     e.preventDefault();
-    console.log('Contact Message:', formData);
-    setSubmitted(true);
+    await new Promise(r=>setTimeout(r,600));
+    setSent(true);
+    setForm({name:'',email:'',message:''});
   };
-
-  if (submitted) {
-    return (
-      <section style={{ padding: '80px 20px', textAlign: 'center', background: '#f5f5f5' }}>
-        <h2 style={{ fontSize: 32, color: '#ff4d4f', marginBottom: 16 }}>Message Sent!</h2>
-        <p style={{ fontSize: 18, color: '#555' }}>We will get back to you shortly. Thank you!</p>
-      </section>
-    );
-  }
 
   return (
-    <section style={{ padding: '80px 20px', background: '#f5f5f5' }}>
-      <div style={{
-        maxWidth: 1000,
-        margin: '0 auto',
-        display: 'flex',
-        gap: 40,
-        flexWrap: 'wrap',
-      }}>
-        <form onSubmit={handleSubmit} style={{
-          flex: 1,
-          background: '#fff',
-          padding: 40,
-          borderRadius: 16,
-          boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-          display: 'grid',
-          gap: 20,
-        }}>
-          <h2 style={{ fontSize: 32, marginBottom: 20, color: '#ff4d4f' }}>Contact Us</h2>
-          <input style={inputStyle} type="text" name="name" placeholder="Your Name" required value={formData.name} onChange={handleChange} />
-          <input style={inputStyle} type="email" name="email" placeholder="Your Email" required value={formData.email} onChange={handleChange} />
-          <textarea style={{ ...inputStyle, minHeight: 140 }} name="message" placeholder="Your Message" required value={formData.message} onChange={handleChange} />
-          <button style={buttonStyle} type="submit">Send Message</button>
-        </form>
-
-        <div style={{
-          flex: 1,
-          minHeight: 400,
-          borderRadius: 16,
-          overflow: 'hidden',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-        }}>
-          <iframe
-            title="Restaurant Map"
-            src="https://maps.google.com/maps?q=New%20York%20City&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            style={{ width: '100%', height: '100%', border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-          ></iframe>
+    <section className="section" id="contact">
+      <div className="container">
+        <div className="grid grid-2">
+          <div className="card">
+            <span className="badge">Talk to us</span>
+            <h2>Contact</h2>
+            <p>Events, catering, or special requests? Send a message.</p>
+            <form onSubmit={submit} style={{display:'grid',gap:12,marginTop:10}}>
+              <input required name="name" placeholder="Full name" value={form.name} onChange={onChange} style={iStyle}/>
+              <input required type="email" name="email" placeholder="Email address" value={form.email} onChange={onChange} style={iStyle}/>
+              <textarea required name="message" rows="4" placeholder="Your message…" value={form.message} onChange={onChange} style={{...iStyle, resize:'vertical'}} />
+              <button className="btn btn-primary">{sent ? 'Sent ✓' : 'Send message'}</button>
+            </form>
+          </div>
+          <div className="card" style={{padding:0,overflow:'hidden'}}>
+            <iframe
+              title="map"
+              width="100%" height="420" style={{border:0, filter:'grayscale(20%) contrast(95%)'}}
+              loading="lazy" allowFullScreen
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8389233280264!2d144.95565177616417!3d-37.81732793458012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ5JzAyLjQiUyAxNDTCsDU3JzI0LjQiRQ!5e0!3m2!1sen!2s!4v1700000000000"
+            />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-const inputStyle = {
-  padding: '14px 20px',
-  borderRadius: 8,
-  border: '1px solid #ddd',
-  fontSize: 16,
-  outline: 'none',
-  transition: '0.3s',
-};
-
-const buttonStyle = {
-  padding: '16px',
-  borderRadius: 50,
-  border: 'none',
-  fontSize: 18,
-  fontWeight: 'bold',
-  color: '#fff',
-  background: 'linear-gradient(90deg, #ff4d4f, #ff7a5c)',
-  cursor: 'pointer',
-  transition: '0.3s',
+const iStyle = {
+  background:'#0f0f14',
+  border:'1px solid var(--border)',
+  color:'var(--text)',
+  borderRadius:12,
+  padding:'12px 14px',
+  width:'100%'
 };

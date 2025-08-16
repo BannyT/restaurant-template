@@ -1,82 +1,76 @@
 import React, { useState } from 'react';
 
-export default function Reservation() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    date: '',
-    time: '',
-    guests: 1,
-  });
-  const [submitted, setSubmitted] = useState(false);
+export default function Reservation(){
+  const [form, setForm] = useState({ name:'', email:'', date:'', time:'', guests:2, notes:'' });
+  const [status, setStatus] = useState({ loading:false, ok:null, msg:'' });
 
-  const handleChange = e => {
+  const onChange = e => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setForm(prev => ({...prev, [name]: value}));
   };
 
-  const handleSubmit = e => {
+  const submit = async (e) => {
     e.preventDefault();
-    console.log('Reservation Data:', formData);
-    setSubmitted(true);
-  };
+    setStatus({loading:true, ok:null, msg:''});
 
-  if (submitted) {
-    return (
-      <section style={{ padding: '80px 20px', textAlign: 'center', background: '#fff8f5' }}>
-        <h2 style={{ fontSize: 32, color: '#ff4d4f', marginBottom: 16 }}>Reservation Confirmed!</h2>
-        <p style={{ fontSize: 18, color: '#555' }}>
-          Thank you for booking with us. We look forward to serving you.
-        </p>
-      </section>
-    );
-  }
+    // ✅ Hook point: integrate EmailJS / Firestore here
+    // await emailjs.send(...) OR await addDoc(collection(db,'reservations'), form)
+
+    await new Promise(r=>setTimeout(r, 900)); // simulate network
+    setStatus({loading:false, ok:true, msg:'Reservation request sent. We will confirm via email shortly.'});
+    setForm({ name:'', email:'', date:'', time:'', guests:2, notes:'' });
+  };
 
   return (
-    <section style={{ padding: '80px 20px', background: '#fff8f5' }}>
-      <div style={{
-        maxWidth: 700,
-        margin: '0 auto',
-        background: '#fff',
-        padding: 40,
-        borderRadius: 16,
-        boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-      }}>
-        <h2 style={{ textAlign: 'center', fontSize: 36, marginBottom: 40, color: '#ff4d4f' }}>Book a Table</h2>
-        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 20 }}>
-          <input style={inputStyle} type="text" name="name" placeholder="Full Name" required value={formData.name} onChange={handleChange} />
-          <input style={inputStyle} type="email" name="email" placeholder="Email" required value={formData.email} onChange={handleChange} />
-          <input style={inputStyle} type="tel" name="phone" placeholder="Phone Number" required value={formData.phone} onChange={handleChange} />
-          <div style={{ display: 'flex', gap: 16 }}>
-            <input style={{ ...inputStyle, flex: 1 }} type="date" name="date" required value={formData.date} onChange={handleChange} />
-            <input style={{ ...inputStyle, flex: 1 }} type="time" name="time" required value={formData.time} onChange={handleChange} />
+    <section className="section" id="reservation">
+      <div className="container">
+        <div className="card" style={{overflow:'hidden', padding:0}}>
+          <div className="grid grid-2" style={{alignItems:'stretch'}}>
+            <div style={{padding:28}}>
+              <span className="badge">Reserve a Table</span>
+              <h2 style={{marginTop:8}}>An evening to remember</h2>
+              <p>Secure your spot with our online reservation form. For same-day bookings, please call.</p>
+
+              <form onSubmit={submit} style={{display:'grid',gap:12,marginTop:14}}>
+                <input required name="name" placeholder="Full name" value={form.name} onChange={onChange}
+                  style={iStyle} />
+                <input required type="email" name="email" placeholder="Email address" value={form.email} onChange={onChange}
+                  style={iStyle} />
+                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+                  <input required type="date" name="date" value={form.date} onChange={onChange} style={iStyle}/>
+                  <input required type="time" name="time" value={form.time} onChange={onChange} style={iStyle}/>
+                </div>
+                <select name="guests" value={form.guests} onChange={onChange} style={iStyle}>
+                  {[1,2,3,4,5,6,7,8].map(n => <option key={n} value={n}>{n} guest{n>1?'s':''}</option>)}
+                </select>
+                <textarea name="notes" rows="3" placeholder="Occasion, preferences, allergies…" value={form.notes} onChange={onChange}
+                  style={{...iStyle, resize:'vertical'}} />
+                <button className="btn btn-primary" disabled={status.loading}>
+                  {status.loading ? 'Sending…' : 'Request Reservation'}
+                </button>
+                {status.msg && <p style={{color: status.ok ? '#84f7b5' : '#ff8a8a'}}>{status.msg}</p>}
+              </form>
+            </div>
+
+            <div style={{minHeight:420,position:'relative'}}>
+              <img
+                src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1600&auto=format&fit=crop"
+                alt="dining room"
+                style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'}}
+              />
+            </div>
           </div>
-          <input style={inputStyle} type="number" name="guests" min="1" max="20" value={formData.guests} onChange={handleChange} />
-          <button style={buttonStyle} type="submit">Reserve Now</button>
-        </form>
+        </div>
       </div>
     </section>
   );
 }
 
-const inputStyle = {
-  padding: '14px 20px',
-  borderRadius: 8,
-  border: '1px solid #ddd',
-  fontSize: 16,
-  outline: 'none',
-  transition: '0.3s',
-};
-
-const buttonStyle = {
-  padding: '16px',
-  borderRadius: 50,
-  border: 'none',
-  fontSize: 18,
-  fontWeight: 'bold',
-  color: '#fff',
-  background: 'linear-gradient(90deg, #ff4d4f, #ff7a5c)',
-  cursor: 'pointer',
-  transition: '0.3s',
+const iStyle = {
+  background:'#0f0f14',
+  border:'1px solid var(--border)',
+  color:'var(--text)',
+  borderRadius:12,
+  padding:'12px 14px',
+  width:'100%'
 };
